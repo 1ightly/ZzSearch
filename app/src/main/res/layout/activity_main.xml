@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.jiejie.zzsearch.MainActivity"
+    android:background="@drawable/background">
+
+    <include layout="@layout/menu_app_bar" android:id="@+id/app_bar"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Z  z"
+            android:textColor="@color/blue"
+            android:textSize="55dp"
+            android:textStyle="bold"/>
+
+        <android.support.v7.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:id="@+id/searchview"
+            android:layout_below="@+id/title"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:queryHint="Search Nema..."
+            app:defaultQueryHint="Search Nema.... "
+            app:showAsAction="ifRoom|collapseActionView"
+            android:drawablePadding="10dp"
+            android:background="@drawable/sector_background"
+            android:layout_centerVertical="true"
+            android:paddingLeft="2dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
