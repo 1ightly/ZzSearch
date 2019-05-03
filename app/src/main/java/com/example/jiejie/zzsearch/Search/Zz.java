@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import com.example.jiejie.zzsearch.R;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -239,17 +240,30 @@ public class Zz extends AppCompatActivity implements SearchView.OnQueryTextListe
             }
             else{
                 try {
-                    JSONArray jsonArray=new JSONArray(result);
+                    JSONObject jsonObject=new JSONObject(result);
+                    String reponse=jsonObject.getString("response");
+
+                    JSONObject reponseObject=new JSONObject(reponse);
+                    String docs=reponseObject.getString("docs");
+                    JSONArray jsonArray=new JSONArray(docs);
                     for(int i=0;i<jsonArray.length();i++){
                         JSONObject json_data=jsonArray.getJSONObject(i);
+                        dataZz dataEx=new dataZz();
+                        String tmpTitle=json_data.getString("title");
+                        tmpTitle=tmpTitle.substring(tmpTitle.indexOf("\"")+1,tmpTitle.lastIndexOf("\""));
+                        dataEx.title=tmpTitle;
+                        String tmpUrl= StringEscapeUtils.unescapeJson(json_data.getString("url"));
+                        tmpUrl=tmpUrl.substring(tmpUrl.indexOf("\"")+1,tmpUrl.lastIndexOf("\""));
+                        dataEx.clickUrl=tmpUrl;
+                        data.add(dataEx);
                     }
                     // Setup and Handover data to recyclerview
                     mRVFish = (RecyclerView) findViewById(R.id.recylcerView);
-                    // mAdapter = new AdapterZz(Zz.this, data);
-                    //mRVFish.setAdapter(mAdapter);
+                    mAdapter = new AdapterZz(Zz.this, data);
+                    mRVFish.setAdapter(mAdapter);
                     mRVFish.setLayoutManager(new LinearLayoutManager(Zz.this));
 
-                    searchView.setQuery("", true);
+                    //searchView.setQuery("", true);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
